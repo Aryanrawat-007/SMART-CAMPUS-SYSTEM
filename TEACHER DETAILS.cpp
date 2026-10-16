@@ -1,31 +1,37 @@
+// ---------------- TEACHER DETAILS (Array + Searching) ----------------
 struct Teacher {
     string name;
-    string department; 
-     string room;
+    string department;
+    string room;
     string subject;
 };
 
 class TeacherDetails {
 private:
     Teacher teachers[4] = {
-        {"Dr. Anita Sharma", "Computer Science", "CS-101", "Data Structures"},
-        {"Prof. Rakesh Verma", "Computer Science", "CS-105", "Operating Systems"},
-        {"Dr. Meera Joshi", "Mathematics", "M-204", "Discrete Mathematics"},
+        {"Dr. Deepak Singh Rana", "Computer Science", "CS-329", "c language"},
+        {"Prof. Ajay Shukla", "Computer Science", "CS-05", "Data structure"},
+        {"Dr. v p Dubey ","Electronics Engineering", "M-204", "Logic Design"},
         {"Prof. Sunil Negi", "Electronics", "EC-110", "Digital Electronics"}
     };
     int count = 4;
+
+    void printTeacher(const Teacher &t) {
+        cout << "\nName: " << t.name
+             << "\nDepartment: " << t.department
+             << "\nRoom: " << t.room
+             << "\nSubject: " << t.subject << "\n";
+    }
 
 public:
     void showTeachers() {
         cout << "\n--- TEACHER DETAILS (SAMPLE DATA) ---\n";
         for (int i = 0; i < count; i++) {
-            cout << "\nName: " << teachers[i].name
-                 << "\nDepartment: " << teachers[i].department
-                 << "\nRoom: " << teachers[i].room
-                 << "\nSubject: " << teachers[i].subject << "\n";
+            printTeacher(teachers[i]);
         }
     }
 
+    // LINEAR SEARCH: check every element of the array one by one
     void searchTeacher() {
         string name;
         cout << "Enter teacher name: ";
@@ -33,11 +39,8 @@ public:
 
         bool found = false;
         for (int i = 0; i < count; i++) {
-    if (teachers[i].name.find(name) != string::npos) {
-                cout << "\nName: " << teachers[i].name
-                     << "\nDepartment: " << teachers[i].department
-                     << "\nRoom: " << teachers[i].room
-                     << "\nSubject: " << teachers[i].subject << "\n";
+            if (teachers[i].name.find(name) != string::npos) {
+                printTeacher(teachers[i]);
                 found = true;
             }
         }
@@ -52,18 +55,16 @@ public:
             cout << "1. View all teachers\n";
             cout << "2. Search teacher by name\n";
             cout << "0. Back\n";
-            cout << "Enter choice: ";
 
-            if (!(cin >> choice)) {
-                clearInput();
-                cout << "Please enter a number.\n";
-                continue;
-            }
-            clearInput();
+            if (!readChoice("Enter choice: ", choice))
+            continue;
 
-            if (choice == 1) showTeachers();
-            else if (choice == 2) searchTeacher();
-            else if (choice != 0) cout << "Invalid choice.\n";
+            if (choice == 1)
+            showTeachers();
+            else if (choice == 2)
+            searchTeacher();
+            else if (choice != 0)
+            cout << "Invalid choice.\n";
 
         } while (choice != 0);
     }
