@@ -19,7 +19,6 @@ bool readChoice(string prompt, int &choice) {
     return false;
 }
 
-// Structure for lost and found items
 struct LostItem {
     string itemName;
     string place;
@@ -34,14 +33,13 @@ private:
     int count;
 
 public:
-    // Constructor
+
     LostAndFound() {
         head = NULL;
         tail = NULL;
         count = 0;
     }
 
-    // Destructor
     ~LostAndFound() {
         while (head != NULL) {
             LostItem *temp = head;
@@ -50,11 +48,9 @@ public:
         }
     }
 
-    // Copying is disabled
     LostAndFound(const LostAndFound &) = delete;
     LostAndFound &operator=(const LostAndFound &) = delete;
 
-    // Report a lost or found item
     void reportItem() {
         LostItem *node = new LostItem;
 
@@ -81,29 +77,27 @@ public:
         cout << "Item report added successfully!\n";
     }
 
-    // Display all reports
     void showItems() {
         if (count == 0) {
             cout << "No lost or found items reported yet.\n";
             return;
         }
 
-        cout << "\n--- LOST AND FOUND RECORDS ---\n";
+        cout<<"\n-LOST AND FOUND RECORDS-\n";
 
         LostItem *current = head;
         int number = 1;
 
         while (current != NULL) {
             cout << number << ". Item: " << current->itemName
-                 << " | Place: " << current->place
-                 << " | Status: " << current->status << '\n';
+                 << "  Place: " << current->place
+                 << "  Status: " << current->status << '\n';
 
             current = current->next;
             number++;
         }
     }
 
-    // Display newest reports first using a stack
     void showNewestFirst() {
         if (count == 0) {
             cout << "No lost or found items reported yet.\n";
@@ -121,7 +115,7 @@ public:
             current = current->next;
         }
 
-        cout << "\n--- NEWEST REPORTS FIRST ---\n";
+        cout << "\n- NEWEST REPORTS FIRST- \n";
 
         int number = 1;
 
@@ -139,9 +133,8 @@ public:
         delete[] stack;
     }
 
-    // Help and contact information
     void showHelp() {
-        cout << "\n--- HELP / CONTACT INFORMATION ---\n";
+        cout << "\n-HELP / CONTACT INFORMATION-\n";
 
         cout << "\nPerson 1:\n";
         cout << "Contact Number: 9756473638\n";
@@ -155,7 +148,6 @@ public:
              << "please contact the above persons.\n";
     }
 
-    // Main menu
     void menu() {
         int choice;
 
@@ -187,11 +179,8 @@ public:
     }
 };
 
-// Main function
 int main() {
     LostAndFound system;
-
     system.menu();
-
     return 0;
 }
