@@ -11,7 +11,7 @@ struct Notice {
     string date;
     string message;
     Notice* next;
-};
+}; 
 
 Notice* head = NULL;
 int nextId = 1;
