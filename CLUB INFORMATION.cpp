@@ -149,34 +149,6 @@ public:
         }
     }
 
-    // Search by contact email
-    void searchByContact() {
-        string searchText;
-        bool found = false;
-
-        cout << "Enter contact email to search: ";
-        getline(cin, searchText);
-
-        if (searchText.empty()) {
-            cout << "Please enter a contact email.\n";
-            return;
-        }
-
-        searchText = toLowerCase(searchText);
-
-        for (int i = 0; i < count; i++) {
-            if (toLowerCase(clubs[i].contact).find(searchText)
-                != string::npos) {
-                displayClub(clubs[i]);
-                found = true;
-            }
-        }
-
-        if (!found) {
-            cout << "No matching contact found.\n";
-        }
-    }
-
     // Add a new club using user input
     void addNewClub() {
         string name, activity, contact;
@@ -214,8 +186,7 @@ public:
             cout << "1. View All Clubs\n";
             cout << "2. Search by Club Name\n";
             cout << "3. Search by Activity\n";
-            cout << "4. Search by Contact\n";
-            cout << "5. Add New Club\n";
+            cout << "4. Add New Club\n";
             cout << "0. Back to Main Menu\n";
             cout << "Enter your choice: ";
 
@@ -242,10 +213,6 @@ public:
                     break;
 
                 case 4:
-                    searchByContact();
-                    break;
-
-                case 5:
                     addNewClub();
                     break;
 
@@ -260,6 +227,7 @@ public:
         } while (choice != 0);
     }
 };
+
 int main() {
     ClubInformation clubInfo;
     int choice;
@@ -274,7 +242,7 @@ int main() {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "Please enter a valid number.\n";
-            choice = -1;   // keep the loop running
+            choice = -1;
             continue;
         }
 
