@@ -3,7 +3,6 @@
 #include <fstream>
 #include <string>
 using namespace std;
-
 struct Notice {
     int id;
     string title;
@@ -12,14 +11,12 @@ struct Notice {
     string message;
     Notice* next;
 }; 
-
 Notice* head = NULL;
 int nextId = 1;
 
 void addToList(int id, string title, string category,
                string date, string message) {
     Notice* newNotice = new Notice;
-
     newNotice->id = id;
     newNotice->title = title;
     newNotice->category = category;
@@ -31,35 +28,28 @@ void addToList(int id, string title, string category,
         head = newNotice;
     } else {
         Notice* temp = head;
-
         while (temp->next != NULL) {
             temp = temp->next;
         }
-
         temp->next = newNotice;
     }
 }
 
 void saveNotices() {
     ofstream file("notices.txt");
-
     if (!file) {
         cout << "Error saving notices!\n";
         return;
     }
-
     Notice* temp = head;
-
     while (temp != NULL) {
         file << temp->id << '\n';
         file << temp->title << '\n';
         file << temp->category << '\n';
         file << temp->date << '\n';
         file << temp->message << '\n';
-
         temp = temp->next;
     }
-
     file.close();
 }
 
@@ -69,10 +59,8 @@ void loadNotices() {
     if (!file) {
         return;  
     }
-
     int id;
     string title, category, date, message;
-
     while (file >> id) {
         file.ignore();
 
@@ -85,12 +73,10 @@ void loadNotices() {
         }
 
         addToList(id, title, category, date, message);
-
         if (id >= nextId) {
             nextId = id + 1;
         }
     }
-
     file.close();
 }
 
@@ -100,16 +86,12 @@ void addNotice() {
 
     cout << "\nEnter notice title: ";
     getline(cin >> ws, title);
-
     cout << "Enter category: ";
     getline(cin, category);
-
     cout << "Enter date: ";
     getline(cin, date);
-
     cout << "Enter notice message: ";
     getline(cin, message);
-
     addToList(id, title, category, date, message);
     saveNotices();
 
@@ -122,11 +104,8 @@ void displayNotices() {
         cout << "\nNo notices available.\n";
         return;
     }
-
     Notice* temp = head;
-
     cout << "\n CAMPUS NOTICES \n";
-
     while (temp != NULL) {
         cout << "\nID: " << temp->id;
         cout << "\nTitle: " << temp->title;
@@ -134,7 +113,6 @@ void displayNotices() {
         cout << "\nDate: " << temp->date;
         cout << "\nMessage: " << temp->message;
         cout << "\n--------------------------\n";
-
         temp = temp->next;
     }
 }
@@ -147,7 +125,6 @@ void searchNotice() {
     getline(cin >> ws, title);
 
     Notice* temp = head;
-
     while (temp != NULL) {
         if (temp->title == title) {
             cout << "\nNotice found!\n";
@@ -158,10 +135,8 @@ void searchNotice() {
 
             found = true;
         }
-
         temp = temp->next;
     }
-
     if (!found) {
         cout << "\nNotice not found.\n";
     }
@@ -169,7 +144,6 @@ void searchNotice() {
 
 void deleteNotice() {
     int id;
-
     cout << "\nEnter notice ID to delete: ";
 
     if (!(cin >> id)) {
@@ -186,12 +160,10 @@ void deleteNotice() {
         previous = temp;
         temp = temp->next;
     }
-
     if (temp == NULL) {
         cout << "\nNotice not found.\n";
         return;
     }
-
     if (previous == NULL) {
         head = temp->next;
     } else {
@@ -211,12 +183,9 @@ void clearNotices() {
         delete temp;
     }
 }
-
 int main() {
     loadNotices();
-
     int choice;
-
     do {
         cout << "\nSMART CAMPUS NOTICE SYSTEM \n";
         cout << "1. Add Notice\n";
@@ -232,34 +201,27 @@ int main() {
             cin.ignore(10000, '\n');
             continue;
         }
-
         switch (choice) {
             case 1:
                 addNotice();
                 break;
-
             case 2:
                 displayNotices();
                 break;
-
             case 3:
                 searchNotice();
                 break;
-
             case 4:
                 deleteNotice();
                 break;
-
             case 0:
                 cout << "\nBYE!\n";
                 break;
-
             default:
                 cout << "\nInvalid choice.\n";
         }
 
     } while (choice != 0);
-
     clearNotices();
     return 0;
 }
