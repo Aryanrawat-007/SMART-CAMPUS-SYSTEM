@@ -6,8 +6,6 @@
 
 using namespace std;
 
-// ---------------- CLUB INFORMATION (Array) ----------------
-
 struct Club {
     string name;
     string activity;
@@ -39,7 +37,6 @@ private:
     }
 
 public:
-    // Constructor: add five default clubs
     ClubInformation() {
         count = 0;
 
@@ -64,7 +61,6 @@ public:
                 "Contact details not provided");
     }
 
-    // Add club details to the array
     void addClub(string name, string activity, string contact) {
         if (count >= MAX_CLUBS) {
             cout << "Club list is full!\n";
@@ -77,8 +73,6 @@ public:
 
         count++;
     }
-
-    // Display all clubs
     void showClubs() {
         if (count == 0) {
             cout << "\nNo clubs available.\n";
@@ -89,11 +83,7 @@ public:
 
         for (int i = 0; i < count; i++) {
             cout << "\n" << i + 1 << ".";
-            displayClub(clubs[i]);
-        }
-    }
-
-    // Search by club name
+            displayClub(clubs)
     void searchByName() {
         string searchText;
         bool found = false;
@@ -117,11 +107,7 @@ public:
         }
 
         if (!found) {
-            cout << "No matching club found.\n";
-        }
-    }
-
-    // Search by activity
+            cout << "No matching club found.\
     void searchByActivity() {
         string searchText;
         bool found = false;
@@ -148,8 +134,6 @@ public:
             cout << "No club found for this activity.\n";
         }
     }
-
-    // Add a new club using user input
     void addNewClub() {
         string name, activity, contact;
 
@@ -176,8 +160,6 @@ public:
 
         cout << "Club added successfully!\n";
     }
-
-    // Club information menu
     void menu() {
         int choice;
 
