@@ -19,7 +19,6 @@ private:
     Club clubs[MAX_CLUBS];
     int count;
 
-    // Convert text to lowercase
     string toLowerCase(string text) {
         transform(text.begin(), text.end(), text.begin(),
                   [](unsigned char c) {
@@ -29,7 +28,6 @@ private:
         return text;
     }
 
-    // Display one club
     void displayClub(const Club &c) {
         cout << "\nClub: " << c.name;
         cout << "\nActivities: " << c.activity;
@@ -73,6 +71,7 @@ public:
 
         count++;
     }
+
     void showClubs() {
         if (count == 0) {
             cout << "\nNo clubs available.\n";
@@ -83,7 +82,10 @@ public:
 
         for (int i = 0; i < count; i++) {
             cout << "\n" << i + 1 << ".";
-            displayClub(clubs)
+            displayClub(clubs[i]);
+        }
+    }
+
     void searchByName() {
         string searchText;
         bool found = false;
@@ -107,7 +109,10 @@ public:
         }
 
         if (!found) {
-            cout << "No matching club found.\
+            cout << "No matching club found.\n";
+        }
+    }
+
     void searchByActivity() {
         string searchText;
         bool found = false;
@@ -134,6 +139,7 @@ public:
             cout << "No club found for this activity.\n";
         }
     }
+
     void addNewClub() {
         string name, activity, contact;
 
@@ -160,6 +166,7 @@ public:
 
         cout << "Club added successfully!\n";
     }
+
     void menu() {
         int choice;
 
