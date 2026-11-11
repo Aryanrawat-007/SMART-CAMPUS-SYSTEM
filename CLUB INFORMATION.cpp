@@ -3,6 +3,7 @@
 #include <limits>
 #include <algorithm>
 #include <cctype>
+#include <fstream>
 
 using namespace std;
 
@@ -18,13 +19,14 @@ private:
 
     Club clubs[MAX_CLUBS];
     int count;
+    const string ADMIN_PASSWORD = "admin123";
+    const string FILE_NAME = "clubs.txt";
 
     string toLowerCase(string text) {
         transform(text.begin(), text.end(), text.begin(),
                   [](unsigned char c) {
                       return tolower(c);
                   });
-
         return text;
     }
 
@@ -34,10 +36,47 @@ private:
         cout << "\nContact: " << c.contact << "\n";
     }
 
-public:
-    ClubInformation() {
-        count = 0;
+    void saveToFile() {
+        ofstream file(FILE_NAME);
 
+        if (!file) {
+            cout << "Error: Could not save club data to file.\n";
+            return;
+        }
+
+        for (int i = 0; i < count; i++) {
+            file << clubs[i].name << '\n';
+            file << clubs[i].activity << '\n';
+            file << clubs[i].contact << '\n';
+        }
+
+        file.close();
+    }
+
+    bool loadFromFile() {
+        ifstream file(FILE_NAME);
+
+        if (!file) {
+            return false;
+        }
+
+        string name, activity, contact;
+
+        while (count < MAX_CLUBS &&
+               getline(file, name) &&
+               getline(file, activity) &&
+               getline(file, contact)) {
+            clubs[count].name = name;
+            clubs[count].activity = activity;
+            clubs[count].contact = contact;
+            count++;
+        }
+
+        file.close();
+        return count > 0;
+    }
+
+    void loadDefaultClubs() {
         addClub("Co-Dev Club",
                 "Programming contests and coding practice",
                 "codingclub@gmail.com");
@@ -57,6 +96,17 @@ public:
         addClub("Himpravah",
                 "Online Film Festival",
                 "Contact details not provided");
+
+        saveToFile();
+    }
+
+public:
+    ClubInformation() {
+        count = 0;
+
+        if (!loadFromFile()) {
+            loadDefaultClubs();
+        }
     }
 
     void addClub(string name, string activity, string contact) {
@@ -68,7 +118,6 @@ public:
         clubs[count].name = name;
         clubs[count].activity = activity;
         clubs[count].contact = contact;
-
         count++;
     }
 
@@ -141,6 +190,16 @@ public:
     }
 
     void addNewClub() {
+        string password;
+
+        cout << "Enter admin password: ";
+        getline(cin, password);
+
+        if (password != ADMIN_PASSWORD) {
+            cout << "Access denied! Only admin can add clubs.\n";
+            return;
+        }
+
         string name, activity, contact;
 
         if (count >= MAX_CLUBS) {
@@ -163,8 +222,9 @@ public:
         }
 
         addClub(name, activity, contact);
+        saveToFile();
 
-        cout << "Club added successfully!\n";
+        cout << "Club added and saved successfully!\n";
     }
 
     void menu() {
@@ -175,7 +235,7 @@ public:
             cout << "1. View All Clubs\n";
             cout << "2. Search by Club Name\n";
             cout << "3. Search by Activity\n";
-            cout << "4. Add New Club\n";
+            cout << "4. Add New Club (Admin Only)\n";
             cout << "0. Back to Main Menu\n";
             cout << "Enter your choice: ";
 
@@ -192,23 +252,18 @@ public:
                 case 1:
                     showClubs();
                     break;
-
                 case 2:
                     searchByName();
                     break;
-
                 case 3:
                     searchByActivity();
                     break;
-
                 case 4:
                     addNewClub();
                     break;
-
                 case 0:
                     cout << "Returning to main menu...\n";
                     break;
-
                 default:
                     cout << "Invalid choice! Try again.\n";
             }
@@ -241,11 +296,9 @@ int main() {
             case 1:
                 clubInfo.menu();
                 break;
-
             case 0:
                 cout << "Thank you for using the system. Goodbye!\n";
                 break;
-
             default:
                 cout << "Invalid choice! Try again.\n";
         }
