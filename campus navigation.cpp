@@ -23,15 +23,15 @@ public:
     {
         n = 10;
         place[0] = "Main Gate";
-        place[1] = "Admin Block";
-        place[2] = "CSE Department";
+        place[1] = "Campus Building";
+        place[2] = "Open Audi";
         place[3] = "Library";
-        place[4] = "Auditorium";
-        place[5] = "Boys Hostel";
-        place[6] = "Girls Hostel";
+        place[4] = "CSE Department";
+        place[5] = "Gate 2";
+        place[6] = "Parking";
         place[7] = "Canteen";
         place[8] = "Sports Ground";
-        place[9] = "Medical Centre";
+        place[9] = "volleyball court";
 
         for(int i = 0; i < MAX; i++)
         {
