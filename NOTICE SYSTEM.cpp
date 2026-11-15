@@ -174,6 +174,22 @@ private:
             delete temp;
         }
     }
+void addSampleData()
+{
+    addToList(1, "Internal Examination",
+              "Academic", "20-11-2026",
+              "Examinations begin from 25 November.");
+
+    addToList(2, "Annual Sports Meet",
+              "Sports", "22-11-2026",
+              "Sports registrations are open.");
+
+    addToList(3, "Coding Competition",
+              "Events", "23-11-2026",
+              "Coding competition in computer lab.");
+
+    saveNotices();
+}
 public:
     NoticeSystem() {
         head = NULL;
